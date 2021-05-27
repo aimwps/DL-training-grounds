@@ -52,6 +52,6 @@ def train_network(x, y, model, loss, lr, num_epochs):
 
     return model
 
-m = NeuralNetwork(10,5, 3)
+m = NeuralNetwork(10, 5, 3)
 l = nn.BCELoss()
 model = train_network(X, Y, m, l, 0.01, 10000)
