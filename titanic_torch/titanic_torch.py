@@ -30,7 +30,30 @@ class NeuralNetwork(nn.Module):
 
 X = np.random.rand(1000,10)
 
-#print(X)
+#print(X)epochs = 3
+print_every = 40
+
+for e in range(epochs):
+    running_loss = 0
+    print(f"Epoch: {e+1}/{epochs}")
+
+    for i, (images, labels) in enumerate(iter(trainloader)):
+
+        # Flatten MNIST images into a 784 long vector
+        images.resize_(images.size()[0], 784)
+
+        optimizer.zero_grad()
+
+        output = model.forward(images)   # 1) Forward pass
+        loss = criterion(output, labels) # 2) Compute loss
+        loss.backward()                  # 3) Backward pass
+        optimizer.step()                 # 4) Update model
+
+        running_loss += loss.item()
+
+        if i % print_every == 0:
+            print(f"\tIteration: {i}\t Loss: {running_loss/print_every:.4f}")
+            running_loss = 0
 Y = np.random.randint(0, 2, 1000)
 #print(Y)
 
@@ -55,3 +78,28 @@ def train_network(x, y, model, loss, lr, num_epochs):
 m = NeuralNetwork(10, 5, 3)
 l = nn.BCELoss()
 model = train_network(X, Y, m, l, 0.01, 10000)
+epochs = 3
+print_every = 40
+
+
+for e in range(epochs):
+    running_loss = 0
+    print(f"Epoch: {e+1}/{epochs}")
+
+    for i, (images, labels) in enumerate(iter(trainloader)):
+
+        # Flatten MNIST images into a 784 long vector
+        images.resize_(images.size()[0], 784)
+
+        optimizer.zero_grad()
+
+        output = model.forward(images)   # 1) Forward pass
+        loss = criterion(output, labels) # 2) Compute loss
+        loss.backward()                  # 3) Backward pass
+        optimizer.step()                 # 4) Update model
+
+        running_loss += loss.item()
+
+        if i % print_every == 0:
+            print(f"\tIteration: {i}\t Loss: {running_loss/print_every:.4f}")
+            running_loss = 0
